@@ -15,14 +15,20 @@ p, a{
 
 /* PAGE CONTENT */
 
-.content-class { text-align: center;}
+.content-class { 
+	text-align: center;
+	}
+
+#budget-value {
+	margin: 0 auto;
+	border-bottom: 1px solid #1c1c1c;
+}
 
 #line {
-	margin: 25% auto;
+	margin: 15% auto;
     width: 90%;
     height: 2px;
     background-color: #1c1c1c;
-    position: relative;
 }
 
 #line div {
@@ -30,6 +36,15 @@ p, a{
     color: #fff;
     text-align: right;
     line-height: 1px; /* same as #line height if we want text middle aligned */
-    width: 50px;
+    width: 0;
     background-color: #3498db;
+}
+
+#add-expense {
+	border-radius: 50%;
+	width: 6em;
+	height: 6em;
+	background-color: #3498db;
+	float: right;
+	margin-right: 1em;
 }
