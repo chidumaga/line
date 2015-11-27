@@ -1,1 +1,35 @@
 /* Empty. Add your own CSS if you like */
+/* FONTS */
+
+h1,h2,h3,h4,h5,h6{
+ font-size: 100%;
+ font-family: 'Josefin Sans', sans-serif;
+}
+
+h1 { font-size: 6em;  color: #3498db;}
+
+p, a{
+ font-size: 100%;
+ font-family: 'Josefin Sans', sans-serif;
+}
+
+/* PAGE CONTENT */
+
+.content-class { text-align: center;}
+
+#line {
+	margin: 25% auto;
+    width: 90%;
+    height: 2px;
+    background-color: #1c1c1c;
+    position: relative;
+}
+
+#line div {
+    height: 100%;
+    color: #fff;
+    text-align: right;
+    line-height: 1px; /* same as #line height if we want text middle aligned */
+    width: 50px;
+    background-color: #3498db;
+}
