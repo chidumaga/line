@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 	$scope.model = {};
 	$scope.model.budget = 0;
 	$scope.progress = 0;
-	var totalExpenditure = 0;
+	$scope.totalExpenditure = 0;
 
 	$scope.setBudgetValue = function(){
 		console.log($scope.model.budget);
@@ -29,9 +29,8 @@ angular.module('starter.controllers', [])
 		    	},
 		     ]
  			}).then(function(res) {
- 				console.log($scope.expense);
- 				totalExpenditure += $scope.expense.amount;
- 				calcExpenditure(totalExpenditure, $scope.model.budget);
+ 				$scope.totalExpenditure += $scope.expense.amount;
+ 				calcExpenditure($scope.totalExpenditure, $scope.model.budget);
  			});
 		}
 

@@ -33,11 +33,17 @@
           <h1> Budget: </h1>
           <input type="number" name="budget" id="budget" ng-model="model.budget"/>
           </br>
-          <button ng-click="setBudgetValue()">ok</button>
+          <button ng-click="setBudgetValue()">ok</button><button>edit</button>
         </div>
         <div id="line">
           <div style="width:{{progress}}%">
           </div>
+        </div>
+        <div id="suceess-message" ng-if="totalExpenditure < model.budget">
+          Great Work!
+        </div>
+        <div id="failure-message" ng-if="totalExpenditure > model.budget">
+          Do Better!
         </div>
         <div id="add-expense" ng-click="addExpense()"></div>
       </ion-content>
