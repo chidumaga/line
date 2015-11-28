@@ -19,7 +19,9 @@ p, a{
 	text-align: center;
 	}
 
-#budget-value {
+#budget {
+	text-align: center;
+	font-size: 2em;
 	margin: 0 auto;
 	border-bottom: 1px solid #1c1c1c;
 }
@@ -36,7 +38,6 @@ p, a{
     color: #fff;
     text-align: right;
     line-height: 1px; /* same as #line height if we want text middle aligned */
-    width: 0;
     background-color: #3498db;
 }
 
@@ -46,5 +47,6 @@ p, a{
 	height: 6em;
 	background-color: #3498db;
 	float: right;
-	margin-right: 1em;
+	margin-right: 4em;
+	margin-top: -2em;
 }
