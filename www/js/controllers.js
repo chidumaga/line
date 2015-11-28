@@ -3,9 +3,8 @@ angular.module('starter.controllers', [])
 .controller('BudgetCtrl', function($scope, $ionicPopup){
 	$scope.model = {};
 	$scope.model.budget = 0;
-
-	$scope.expenditure = 0;
 	$scope.progress = 0;
+	var totalExpenditure = 0;
 
 	$scope.setBudgetValue = function(){
 		console.log($scope.model.budget);
@@ -16,14 +15,23 @@ angular.module('starter.controllers', [])
 	}
 
 	$scope.addExpense = function(){
-		$ionicPopup.prompt({
+		$scope.expense = {};
+
+		$ionicPopup.show({
    			title: 'Add an expense',
-   			template: 'How much did you spend?',
-   			inputType: 'number',
-   			inputPlaceholder: 'amount'
+   			template: 'How much did you spend?<input type="number" placeholder="amount" ng-model="expense.amount">, <br> What did you spend it on?<input type="text" placeholder="category" ng-model="expense.category" >',
+   			scope: $scope,
+   			buttons: [
+       			{ text: 'Cancel' },
+		        {
+		         text: '<b>Save</b>',
+		         type: 'button-positive'
+		    	},
+		     ]
  			}).then(function(res) {
- 				$scope.expenditure += res;
- 				calcExpenditure($scope.expenditure, $scope.model.budget);
+ 				console.log($scope.expense);
+ 				totalExpenditure += $scope.expense.amount;
+ 				calcExpenditure(totalExpenditure, $scope.model.budget);
  			});
 		}
 
