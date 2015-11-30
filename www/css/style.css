@@ -35,10 +35,6 @@ p, a{
 
 #line div {
     height: 100%;
-    color: #fff;
-    text-align: right;
-    line-height: 1px; /* same as #line height if we want text middle aligned */
-    background-color: #3498db;
 }
 
 #add-expense {

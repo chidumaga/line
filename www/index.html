@@ -35,12 +35,13 @@
           </br>
           <button ng-click="setBudgetValue()">ok</button><button>edit</button>
         </div>
-        <div id="line">
-          <div style="width:{{progress}}%">
+        <div id="line" >
+          <div ng-repeat="selection in selections" style="margin-left:{{selection.marginLeft}}%;width:{{selection.width}}%;background-color:{{selection.lineColor}}">
           </div>
         </div>
-        <div id="suceess-message" ng-if="totalExpenditure < model.budget">
-          Great Work!
+        {{selection.marginLeft}}
+        <div id="success-message" ng-if="totalExpenditure < model.budget">
+          You're doing great!
         </div>
         <div id="failure-message" ng-if="totalExpenditure > model.budget">
           Do Better!
