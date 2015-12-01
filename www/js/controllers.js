@@ -3,10 +3,12 @@ angular.module('starter.controllers', [])
 .controller('BudgetCtrl', function($scope, $ionicPopup){
 	$scope.model = {};
 	$scope.model.budget = 0;
+	$scope.model.currency = "GBP";
 	$scope.progress = 0;
 	$scope.totalExpenditure = 0;
 	$scope.marginLeft = 0;
 	$scope.selections = [];
+	$scope.editMode = false;
 
 	var selectionCount = 0;
 	var totalWidth = 0;
@@ -15,6 +17,14 @@ angular.module('starter.controllers', [])
 	// $scope.setBudgetValue = function(){
 	// 	console.log($scope.model.budget);
 	// }
+
+	$scope.toggleEditMode = function(val){
+		if(val){
+			$scope.editMode = true;
+		} else {
+			$scope.editMode = false;
+		}
+	}
 
 	function calcExpenditure(expenditure, budget){
 		$scope.progress = (expenditure/budget) * 100;
@@ -29,7 +39,7 @@ angular.module('starter.controllers', [])
 	
 		$ionicPopup.show({
    			title: 'Add an expense',
-   			template: 'How much did you spend?<input type="number" placeholder="amount" ng-model="expense.amount"> <br> What did you spend it on? <br> <select ng-model="expense.category" ng-options="category as category.name for category in expense.categories" ng-change="updateCategory(expense.category)"></select>',
+   			template: 'How much did you spend?<input type="number" placeholder="{{model.currency}}" ng-model="expense.amount"> <br> What did you spend it on? <br> <select ng-model="expense.category" ng-options="category as category.name for category in expense.categories" ng-change="updateCategory(expense.category)"></select>',
    			scope: $scope,
    			buttons: [
        			{ text: 'Cancel', onTap: function(e) { return "cancelled"; } },
@@ -78,7 +88,7 @@ angular.module('starter.controllers', [])
 
 		$ionicPopup.alert({
      		title: '<b>'+categoryName+'</b>',
-     		template: 'You have spent:<br>'+' '+totalSpent+' '+'<br>which is<br>'+' '+percentageSpent+'%<br>'+'of your overall budget.'
+     		template: 'You have spent:<br>'+' '+$scope.model.currency+totalSpent+' '+'<br>which is<br>'+' '+percentageSpent+'%<br>'+'of your overall budget.'
    		});
 	}
 

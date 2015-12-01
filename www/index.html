@@ -31,9 +31,16 @@
       <ion-content  class="content-class">
         <div>
           <h1> Budget: </h1>
-          <input type="number" name="budget" id="budget" ng-model="model.budget"/>
+          <select ng-model="model.currency">
+            <option>GBP</option>
+            <option>USD</option>
+            <option>EUR</option>
+          </select>
+          <div id="input-div">
+            <input type="number" name="budget" id="budget" ng-model="model.budget"/>
+          </div> <!-- ng-show to toggle input box, dropdown, buttons, on or off based on editMode" -->
           </br>
-          <button>ok</button><button>edit</button>
+          <button ng-click="toggleEditMode(0)">ok</button><button ng-click="toggleEditMode(1)">edit</button>
         </div>
         <div id="line" >
           <div ng-repeat="selection in selections" ng-click="getCategoryInfo('{{selection.categoryName}}', {{selection.categoryKey}})" style="margin-left:{{selection.marginLeft}}%;width:{{selection.width}}%;background-color:{{selection.lineColor}}">

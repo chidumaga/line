@@ -19,6 +19,8 @@ p, a{
 	text-align: center;
 	}
 
+#input-div {display: inline-block;}
+
 #budget {
 	text-align: center;
 	font-size: 2em;
@@ -27,7 +29,7 @@ p, a{
 }
 
 #line {
-	margin: 15% auto;
+	margin: 35% auto; 
     width: 90%;
     height: 2px;
     background-color: #1c1c1c;
@@ -43,6 +45,6 @@ p, a{
 	height: 6em;
 	background-color: #3498db;
 	float: right;
-	margin-right: 4em;
-	margin-top: -2em;
+	margin-right: 2em;
+	margin-top: 4em;
 }
