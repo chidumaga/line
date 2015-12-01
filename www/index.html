@@ -33,10 +33,10 @@
           <h1> Budget: </h1>
           <input type="number" name="budget" id="budget" ng-model="model.budget"/>
           </br>
-          <button ng-click="setBudgetValue()">ok</button><button>edit</button>
+          <button>ok</button><button>edit</button>
         </div>
         <div id="line" >
-          <div ng-repeat="selection in selections" style="margin-left:{{selection.marginLeft}}%;width:{{selection.width}}%;background-color:{{selection.lineColor}}">
+          <div ng-repeat="selection in selections" ng-click="getCategoryInfo('{{selection.categoryName}}', {{selection.categoryKey}})" style="margin-left:{{selection.marginLeft}}%;width:{{selection.width}}%;background-color:{{selection.lineColor}}">
           </div>
         </div>
         {{selection.marginLeft}}
