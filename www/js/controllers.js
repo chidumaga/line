@@ -32,18 +32,22 @@ angular.module('starter.controllers', [])
    			template: 'How much did you spend?<input type="number" placeholder="amount" ng-model="expense.amount"> <br> What did you spend it on? <br> <select ng-model="expense.category" ng-options="category as category.name for category in expense.categories" ng-change="updateCategory(expense.category)"></select>',
    			scope: $scope,
    			buttons: [
-       			{ text: 'Cancel' },
+       			{ text: 'Cancel', onTap: function(e) { return "cancelled"; } },
 		        {
 		         text: '<b>Add</b>',
 		         type: 'button-positive'
 		    	},
 		     ]
  			}).then(function(res) {
- 				totalWidth += $scope.progress;
- 				$scope.totalExpenditure += $scope.expense.amount;
+ 				if(res==="cancelled"){
+ 					return;
+ 				} else {
+ 					totalWidth += $scope.progress;
+ 					$scope.totalExpenditure += $scope.expense.amount;
 
- 				calcExpenditure($scope.expense.amount, $scope.model.budget);
- 				setSelectionProperties();
+ 					calcExpenditure($scope.expense.amount, $scope.model.budget);
+ 					setSelectionProperties();
+ 				}
  			});
 		}
 
