@@ -10,6 +10,9 @@
 
     <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:300' rel='stylesheet' type='text/css'>
 
+    <!-- ionicons -->
+    <link rel="stylesheet" type="text/css" media="screen" href="ionicons/ionicons.css">
+
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
@@ -30,31 +33,28 @@
     <ion-pane>
       <ion-content  class="content-class">
         <div>
-          <h1> Budget: </h1>
-          <select ng-model="model.currency">
-            <option>GBP</option>
-            <option>USD</option>
-            <option>EUR</option>
-          </select>
-          <div id="input-div">
-            <input type="number" name="budget" id="budget" ng-model="model.budget"/>
-          </div> <!-- ng-show to toggle input box, dropdown, buttons, on or off based on editMode" -->
-          </br>
-          <button ng-click="toggleEditMode(0)">ok</button><button ng-click="toggleEditMode(1)">edit</button>
-        </div>
-        <div id="line" >
-          <div ng-repeat="selection in selections" ng-click="getCategoryInfo('{{selection.categoryName}}', {{selection.categoryKey}})" style="margin-left:{{selection.marginLeft}}%;width:{{selection.width}}%;background-color:{{selection.lineColor}}">
+          <h1> Budge Bars </h1>
+          <p ng-show="!show" id="budget-value">{{model.currency}} {{model.budget}}  <i ng-click="show = !show" class="ion-edit"></i> </p>
+          <div ng-show="show">
+            <select id="currency-select" ng-model="model.currency">
+              <option>GBP</option>
+              <option>USD</option>
+              <option>EUR</option>
+            </select>
+            <div id="input-div">
+              <p><input type="number" name="budget" id="input-budget" ng-model="model.budget"/> <i ng-click="show = !show" class="ion-checkmark"></i></p>
+            </div> 
           </div>
         </div>
-        {{selection.marginLeft}}
-        <div id="success-message" ng-if="totalExpenditure < model.budget">
-          You're doing great!
+
+        <div id="bar" ng-repeat="selection in selections" ng-click="getCategoryInfo('{{selection.categoryName}}', {{selection.categoryKey}})" style="width:{{selection.width}}%;background-color:{{selection.lineColor}}">
+          <p id="barname">{{selection.categoryName}}</p>
         </div>
-        <div id="failure-message" ng-if="totalExpenditure > model.budget">
-          Do Better!
-        </div>
-        <div id="add-expense" ng-click="addExpense()"></div>
+
+        
       </ion-content>
+      <div class="col-offset-80" id="add-expense" ng-click="addExpense()"></div>
     </ion-pane>
+
   </body>
 </html>

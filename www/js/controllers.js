@@ -6,13 +6,13 @@ angular.module('starter.controllers', [])
 	$scope.model.currency = "GBP";
 	$scope.progress = 0;
 	$scope.totalExpenditure = 0;
-	$scope.marginLeft = 0;
 	$scope.selections = [];
 	$scope.editMode = false;
 
 	var selectionCount = 0;
 	var totalWidth = 0;
 	var categoryExpenditure = [0,0]; //length of array equal to number of categories
+	var usedCategories = [];
 
 	// $scope.setBudgetValue = function(){
 	// 	console.log($scope.model.budget);
@@ -38,7 +38,7 @@ angular.module('starter.controllers', [])
 		// $scope.expense.category = $scope.expense.categories[0];
 	
 		$ionicPopup.show({
-   			title: 'Add an expense',
+   			title: '<h4>Add an expense<h4>',
    			template: 'How much did you spend?<input type="number" placeholder="{{model.currency}}" ng-model="expense.amount"> <br> What did you spend it on? <br> <select ng-model="expense.category" ng-options="category as category.name for category in expense.categories" ng-change="updateCategory(expense.category)"></select>',
    			scope: $scope,
    			buttons: [
@@ -71,15 +71,21 @@ angular.module('starter.controllers', [])
 
 	function setSelectionProperties(){
 		selectionCount += 1;
-		previousSelection = selectionCount-1
+		previousSelection = $scope.selections.length
 
-		$scope.selections.push({});
-		$scope.selections[previousSelection].index = selectionCount;
-		$scope.selections[previousSelection].width = $scope.progress;
-		$scope.selections[previousSelection].marginLeft = totalWidth;
-		$scope.selections[previousSelection].lineColor = $scope.lineColor;
-		$scope.selections[previousSelection].categoryName = $scope.categoryName;
-		$scope.selections[previousSelection].categoryKey = $scope.categoryKey;
+		if(($scope.selections.length === 0) || !isInArray($scope.categoryName, usedCategories)){
+			usedCategories.push($scope.categoryName);
+			$scope.selections.push({});
+			$scope.selections[previousSelection].index = selectionCount;
+			$scope.selections[previousSelection].width = $scope.progress;
+			$scope.selections[previousSelection].lineColor = $scope.lineColor;
+			$scope.selections[previousSelection].categoryName = $scope.categoryName;
+			$scope.selections[previousSelection].categoryKey = $scope.categoryKey;
+			console.log($scope.selections);
+		} else {
+			var index = usedCategories.indexOf($scope.categoryName);
+			$scope.selections[index].width += $scope.progress;
+		}
 	}
 
 	$scope.getCategoryInfo = function(categoryName, categoryKey){
@@ -87,9 +93,12 @@ angular.module('starter.controllers', [])
 		var percentageSpent = (totalSpent/$scope.model.budget)*100
 
 		$ionicPopup.alert({
-     		title: '<b>'+categoryName+'</b>',
-     		template: 'You have spent:<br>'+' '+$scope.model.currency+totalSpent+' '+'<br>which is<br>'+' '+percentageSpent+'%<br>'+'of your overall budget.'
+     		title: '<h4>'+categoryName+'</h4>',
+     		template: '<p>You have spent:<p>'+'<span style="font-size:2em;color:#3498db">'+$scope.model.currency+totalSpent+'</span>'+' on'+' '+categoryName+'.'+'<p>This is</p>'+'<span style="font-size:2em;color:#3498db">'+percentageSpent+'</span>'+'%<br>'+'<p>of your overall budget.</p>'
    		});
 	}
 
+	function isInArray(value, array) {
+  		return array.indexOf(value) > -1;
+	}
 })
