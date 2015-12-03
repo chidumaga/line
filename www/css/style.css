@@ -16,13 +16,19 @@ h4 {
 }
 
 
+
 /* PAGE CONTENT */
 
 .content-class { 
 	text-align: center;
+	background-color: #34495e
 	}
 
-#budget-value{ color: #34495e; font-size: 3em;}
+#budget-value{ color: #ecf0f1; font-size: 1em;}
+.ion-edit{
+	font-size: 0.5em;
+	margin-left: 0.5em;
+}
 
 #input-div {display: inline-block;}
 
@@ -35,6 +41,7 @@ h4 {
 
 input[type=number]{
 	font-family: 'Bebas', sans-serif;
+	color: #3498db;
 }
 
 #bar {

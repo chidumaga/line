@@ -33,16 +33,15 @@
     <ion-pane>
       <ion-content  class="content-class">
         <div>
-          <h1> Budge Bars </h1>
-          <p ng-show="!show" id="budget-value">{{model.currency}} {{model.budget}}  <i ng-click="show = !show" class="ion-edit"></i> </p>
+          <h1> Your Budget: <span ng-show="!show" id="budget-value">{{model.currency}} {{model.budget}}<i ng-click="show = !show" class="ion-edit"></i></span></h1>
           <div ng-show="show">
-            <select id="currency-select" ng-model="model.currency">
+            <select ng-model="model.currency">
               <option>GBP</option>
               <option>USD</option>
               <option>EUR</option>
             </select>
             <div id="input-div">
-              <p><input type="number" name="budget" id="input-budget" ng-model="model.budget"/> <i ng-click="show = !show" class="ion-checkmark"></i></p>
+              <input type="number" name="budget" id="input-budget" ng-model="model.budget"/>
             </div> 
           </div>
         </div>
@@ -50,7 +49,6 @@
         <div id="bar" ng-repeat="selection in selections" ng-click="getCategoryInfo('{{selection.categoryName}}', {{selection.categoryKey}})" style="width:{{selection.width}}%;background-color:{{selection.lineColor}}">
           <p id="barname">{{selection.categoryName}}</p>
         </div>
-
         
       </ion-content>
       <div class="col-offset-80" id="add-expense" ng-click="addExpense()"></div>
