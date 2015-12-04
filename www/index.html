@@ -26,6 +26,7 @@
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
 
   </head>
   <body ng-app="starter" ng-controller="BudgetCtrl">
@@ -34,16 +35,21 @@
       <ion-content  class="content-class">
         <div>
           <h1> Your Budget: <span ng-show="!show" id="budget-value">{{model.currency}} {{model.budget}}<i ng-click="show = !show" class="ion-edit"></i></span></h1>
-          <div ng-show="show">
-            <select ng-model="model.currency">
+          <div ng-show="show" class="input-container">
+            <select class="select-style" ng-model="model.currency">
               <option>GBP</option>
               <option>USD</option>
               <option>EUR</option>
             </select>
             <div id="input-div">
-              <input type="number" name="budget" id="input-budget" ng-model="model.budget"/>
+                <input type="number" name="budget" id="input-budget" ng-model="model.budget"/><i ng-click="show = !show; updateBars(model.currency, model.budget)" class="ion-checkmark"></i><i ng-click="show = !show" class="ion-close"></i>
             </div> 
           </div>
+
+        </div>
+
+        <div id="bar" ng-if="totalExpenditure > 0" style="width:{{totalWidth}}%;background-color: #3498db">
+          <p id="barname">Total: {{model.currency}} {{totalExpenditure}}</p>
         </div>
 
         <div id="bar" ng-repeat="selection in selections" ng-click="getCategoryInfo('{{selection.categoryName}}', {{selection.categoryKey}})" style="width:{{selection.width}}%;background-color:{{selection.lineColor}}">
@@ -51,7 +57,9 @@
         </div>
         
       </ion-content>
-      <div class="col-offset-80" id="add-expense" ng-click="addExpense()"></div>
+      <div class="col-offset-80" id="add-expense" ng-click="addExpense()">
+        <i class="ion-plus"></i>
+      </div>
     </ion-pane>
 
   </body>
