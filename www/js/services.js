@@ -12,9 +12,6 @@ angular.module('starter.services', [])
       $window.localStorage[key] = JSON.stringify(value);
     },
     getObject: function(key) {
-      if(key==="categoryExpenditure"){
-        return [0,0,0,0,0,0,0]
-      }
       return JSON.parse($window.localStorage[key] || '[]');
     },
     clear: function () {

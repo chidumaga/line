@@ -6,16 +6,13 @@ angular.module('starter.controllers', [])
 	$scope.model.currency = $localstorage.get('currency') || "GBP";
 	$scope.progress = parseInt($localstorage.get('progress')) || 0;
 	$scope.totalExpenditure = parseInt($localstorage.get('totalExpenditure')) || 0;
-	$scope.selections = $localstorage.getObject('selections') || [];
+	$scope.selections = $localstorage.getObject('selections')
 	$scope.totalWidth = parseInt($localstorage.get('totalWidth')) || 0;
 
 	var selectionCount = parseInt($localstorage.get('selectionCount')) || 0;
-	var categoryExpenditure = $localstorage.getObject('categoryExpenditure') || [0,0,0,0,0,0,0]; //length of array equal to number of categories
-	var usedCategories = $localstorage.getObject('usedCategories') || [];
-	var previousBudgets = $localstorage.getObject('previousBudgets') || [];
-
-	console.log(selectionCount);
-	console.log(categoryExpenditure);
+	var categoryExpenditure = $localstorage.getObject('categoryExpenditure'); //length of array equal to number of categories
+	var usedCategories = $localstorage.getObject('usedCategories');
+	var previousBudgets = $localstorage.getObject('previousBudgets');
 
 	function calcExpenditure(expenditure, budget){
 		$scope.progress = (expenditure/budget) * 100;
@@ -35,7 +32,7 @@ angular.module('starter.controllers', [])
 	
 		$ionicPopup.show({
    			title: '<h4>Add an expense<h4>',
-   			template: 'How much did you spend?<input type="number" placeholder="{{model.currency}}" ng-model="expense.amount"> <br> What did you spend it on? <br> <select class="select-style" style="width: 9em" ng-model="expense.category" ng-options="category as category.name for category in expense.categories" ng-change="updateCategory(expense.category)"></select>',
+   			template: 'How much did you spend?<input type="number" placeholder="{{model.currency}}" ng-model="expense.amount"> <br> What did you spend it on? <br> <select style="width: 9em" ng-model="expense.category" ng-options="category as category.name for category in expense.categories" ng-change="updateCategory(expense.category)"></select>',
    			scope: $scope,
    			buttons: [
        			{ text: 'Cancel', onTap: function(e) { return "cancelled"; } },
@@ -67,9 +64,6 @@ angular.module('starter.controllers', [])
 		$scope.lineColor = val.color;
 		$scope.categoryName = val.name;
 		$scope.categoryKey = val.key;
-
-		categoryExpenditure[val.key] += $scope.expense.amount;
-		$localstorage.setObject('categoryExpenditure', categoryExpenditure);
 	}
 
 	function setSelectionProperties(){
@@ -93,6 +87,17 @@ angular.module('starter.controllers', [])
 			$scope.selections[index].width += $scope.progress;
 		}
 
+		targetIndex = categoryExpenditure[$scope.categoryKey];
+
+		if(targetIndex === undefined){
+			categoryExpenditure[$scope.categoryKey] = 0;
+			categoryExpenditure[$scope.categoryKey] += $scope.expense.amount;
+		} else {
+			categoryExpenditure[$scope.categoryKey] += $scope.expense.amount;
+		}
+
+		$localstorage.setObject('categoryExpenditure', categoryExpenditure);
+
 		$localstorage.setObject('selections', $scope.selections);
 	}
 
@@ -102,7 +107,7 @@ angular.module('starter.controllers', [])
 
 		$ionicPopup.alert({
      		title: '<h4>'+categoryName+'</h4>',
-     		template: '<p>You have spent:<p>'+'<span style="font-size:2em;color:#3498db">'+$scope.model.currency+totalSpent+'</span>'+' on'+' '+categoryName+'.'+'<p>This is</p>'+'<span style="font-size:2em;color:#3498db">'+percentageSpent+'</span>'+'%<br>'+'<p>of your overall budget.</p>'
+     		template: '<p>You have spent:<p>'+'<span style="font-size:2em;color:#3498db">'+$scope.model.currency+totalSpent+'</span>'+' on'+' '+categoryName+'.'+'<p>This is</p>'+'<span style="font-size:2em;color:#3498db">'+percentageSpent+'%</span>'+'<p>of your overall budget.</p>'
    		});
 	}
 
@@ -130,8 +135,19 @@ angular.module('starter.controllers', [])
   		return array.indexOf(value) > -1;
 	}
 
-	$scope.clearLocalStorage = function(){
-		$localstorage.clear();
+	$scope.resetAppData = function(){
+		$ionicPopup.confirm({
+	     title: 'Reset',
+	     template: 'Are you sure you want to reset the app?'
+	   })
+	   .then(function(res) {
+	     if(res) {
+	       $localstorage.clear();
+	       window.location.reload();
+	     } else {
+	       return;
+	     }
+	   });
 	}
 
 })
