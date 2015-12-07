@@ -1,7 +1,10 @@
 {
-  "name": "line",
+  "name": "Budge Bars",
   "version": "1.1.1",
-  "description": "line: An Ionic project",
+  "description": "A simple budget management tool",
+  "script":{
+    "start": "node app.js"
+  },
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
