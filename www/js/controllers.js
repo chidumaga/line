@@ -113,7 +113,7 @@ angular.module('starter.controllers', [])
 
 	$scope.updateBars = function(currency, budget){
 		previousBudgets.push(budget);
-		$localstorage.setObject('previousBudgetss', previousBudgets);
+		$localstorage.setObject('previousBudgets', previousBudgets);
 
 		$scope.totalWidth = 0;
 
